@@ -2,11 +2,11 @@
 A place for recording coding practice.
 
 
-###bp
+### bp
 A basic implementation of back propagation algorithm.
 
-###cov_matrix
+### cov_matrix
 Calculation of convariance matrix
 
-###mnist
+### mnist
 Programing followed the tutorial on mnist of tensorflow 
