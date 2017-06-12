@@ -2,7 +2,7 @@ import re
 import requests
 
 
-def request_data(comment_api, page=1):
+def request_data(api, page=1):
     r = requests.get(api.format(page=page))
     r = r.json()
     return r
@@ -19,8 +19,7 @@ if __name__ == "__main__":
     rest_counts = total
     while rest_counts > 0:
         current_page += 1
-        comment_api = api.format(page=current_page)
-        r = request_data(comment_api, page=current_page)
+        r = request_data(api, page=current_page)
         # for weibo total bug
         if not r['ok']:
             break
@@ -34,7 +33,6 @@ if __name__ == "__main__":
     # sort comments on number of likes
     comments = sorted(comments, key=lambda i: i['like_counts'], reverse=True)
     print("total valid comments:", len(comments))
-    comments_text = []
     with open("./comments.txt", 'wt') as f:
         for item in comments:
             # remove weibo emoji
