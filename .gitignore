@@ -1,2 +1,2 @@
 *.backup.*
-*.pyc
+__pycache__

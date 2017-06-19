@@ -1,3 +1,6 @@
+from dfs import preorder_visit, inorder_visit, postorder_visit
+
+
 class Node:
     def __init__(self, data=None):
         self.left = None
@@ -83,20 +86,30 @@ class Node:
         q.append(self)
         while q:
             node = q.pop(0)
-            output_tree.append(node.data)
+            output_tree.append(str(node.data))
             if node.left:
                 q.append(node.left)
             if node.right:
                 q.append(node.right)
-        print("breadth first traversal:"+"".join(output_tree))
+        print("breadth first traversal:" + "".join(output_tree))
 
-    def dfs(self):
-        pass
+    # 为啥看起来这么蠢
+    def dfs(self, order="preorder"):
+        VISIT = {"preorder": preorder_visit,
+                 "inorder": inorder_visit,
+                 "postorder": postorder_visit}
+        output_tree = []
+        if order in VISIT.keys():
+            VISIT[order](self, output_tree)
+        print("depth first traversal[%s]" % order + "".join(output_tree))
 
 
 if __name__ == "__main__":
     root = Node()
-    elements = "abcdefg"
+    elements = [4, 2, 1, 3, 6, 5, 7]
     for item in elements:
         root.insert(item)
-    root.bfs()  # abcdefg
+    root.bfs()  # 4261357
+    root.dfs(order="preorder")  # 4213657
+    root.dfs(order="inorder")  # 1234567
+    root.dfs(order="postorder")  # 1325764
