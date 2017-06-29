@@ -11,5 +11,8 @@ Calculation of convariance matrix
 ### mnist
 Programing followed the tutorial on mnist of tensorflow
 
-### spider
+### social
+#### weibo spider
 A spider for weibo comments
+#### flash
+A auto_revoke program for wechat, using module itchat.
