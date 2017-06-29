@@ -14,17 +14,16 @@ def snap(msg, toUserName, delay=5):
 
 
 if __name__ == '__main__':
-    itchat.auto_login()
+    itchat.auto_login(hotReload=True, enableCmdQR=2)
     userType = input("send to user or chatroom?[user/chatroom]")
     if userType == 'user':
         remark_name = input("send to who?")
         to_user = itchat.search_friends(remarkName=remark_name)
         username = to_user[0].UserName
     elif userType == 'chatroom':
-        room_nickname = input("send to which chatroom?")
-        chatrooms = itchat.get_chatrooms()
-        roomNames = [room.UserName for room in chatrooms if room.NickName==room_nickname]
-        username = roomNames[0]
+        room_name = input("send to which chatroom?")
+        chatrooms = itchat.search_chatrooms(name=room_name)
+        username = chatrooms[0].UserName
     else:
         sys.exit()
     msg = input("input your msg:")
