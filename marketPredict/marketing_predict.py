@@ -6,6 +6,7 @@ from sklearn import tree, svm
 from sklearn.metrics import make_scorer, matthews_corrcoef
 from sklearn.model_selection import cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
+from imblearn.over_sampling import RandomOverSampler
 
 numpy.set_printoptions(threshold='nan')
 
@@ -23,46 +24,33 @@ class MarketingData(object):
         self.y_test = y_test
 
 
-
 def generate_data():
+    train_data = numpy.loadtxt('train.csv', delimiter=',', skiprows=1)
+    test_data = numpy.loadtxt('test.csv', delimiter=',', skiprows=1)
 
-    with open('train.csv', 'r') as train_file:
-        train_csv = csv.reader(train_file, delimiter=',')
-        next(train_csv)
-        train_data = list(train_csv)
-        # train_data = train_data[:-10000]
-        # validation_data = train_data[-10000:]
-
-    with open('./test.csv', 'r') as test_file:
-        test_csv = csv.reader(test_file, delimiter=',')
-        next(test_csv)
-        test_data = list(test_csv)
-
-    train_data = numpy.array(train_data)
     # delete id column
     train_data = numpy.delete(train_data, 0, 1)
-    # validation_data = numpy.array(validation_data)
-    # validation_data = numpy.delete(validation_data, 0, 1)
-    test_data = numpy.array(test_data)
     test_data = numpy.delete(test_data, 0, 1)
 
     # One of K encoding of categorical data
     encoder = preprocessing.LabelEncoder()
     for j in (1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 20):
         train_data[:, j] = encoder.fit_transform(train_data[:, j])
-        # validation_data[:, j] = encoder.fit_transform(validation_data[:, j])
     for j in (1, 2, 3, 4, 5, 6, 7, 8, 9, 14):
         test_data[:, j] = encoder.fit_transform(test_data[:, j])
 
     # Converting numpy strings to floats
     train_data = train_data.astype(numpy.float)
-    # validation_data = validation_data.astype(numpy.float)
     test_data = test_data.astype(numpy.float)
 
     train_data = train_data[:, :-1]
     train_target = train_data[:, -1]
-    market = MarketingData(train_data, train_target, test_data)
+    # over sampling
+    ros = RandomOverSampler(random_state=0)
+    X_train, y_train = ros.fit_sample(train_data, train_target)
+    market = MarketingData(X_train,  y_train, test_data)
     return market
+
 
 def generate_imputed_data():
     # this version data has label on train data
@@ -133,7 +121,7 @@ if __name__ == '__main__':
     #market_data = generate_data()
     # imputed data
     market_data = generate_imputed_data()
-    clf = learn_decision_tree(market_data)
-    #clf = svm_clf(market_data)
+    #clf = learn_decision_tree(market_data)
+    clf = svm_clf(market_data)
     # predicting
-    PredictTest(clf, market_data, result_filename="dt_education_submission.csv")
+    PredictTest(clf, market_data, result_filename="svm_oversample_submission.csv")
