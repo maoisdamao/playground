@@ -12,7 +12,7 @@ EPSILON = 0.9
 ALPHA = 0.1
 GAMMA = 0.9
 MAX_EPISODES = 13
-FRESH_TIME = 0.3
+FRESH_TIME = 0.1
 
 
 def build_q_table(n_states, actions):
@@ -54,7 +54,7 @@ def update_env(S, episode, step_counter):
     if S == 'terminal':
         interaction = 'Episode %s: total_steps = %s' % (episode+1, step_counter)
         print('\r{}'.format(interaction), end='')
-        time.sleep(1)
+        time.sleep(0.5)
         print('\r                                ', end='')
     else:
         env_list[S] = 'o'

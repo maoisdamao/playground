@@ -16,3 +16,8 @@ Programing followed the tutorial on mnist of tensorflow
 A spider for weibo comments
 #### flash
 A auto_revoke program for wechat, using module itchat.
+
+### reinforcement learning
+practice for learning reinforcement learning
+
+*treasure on the right* is a one-line command game targets at finding the treasure on the right.
