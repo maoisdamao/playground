@@ -20,6 +20,6 @@ The policy we are following to update Q-table,
 
 $$Q(s,a)\rightarrow (1-\alpha)Q(s,a) + \alpha[r+\gamma max_{a'} Q(s', a')]$$
 
-,where $\alpha$ is the learning rate, and $\gamma$ is the discount rate
+,where $\alpha$ is the learning rate, and $\gamma$ is the discount rate.
 
 
