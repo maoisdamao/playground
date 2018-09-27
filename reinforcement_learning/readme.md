@@ -18,7 +18,8 @@ We follow $\epsilon$ -greedy to take actions, where $\epsilon$=0.9. So, under 90
 #### Update Policy
 The policy we are following to update Q-table,
 
-$Q(s,a)\rightarrow Q(s,a) + \alpha[r+\gamma max_{a'} Q(s', a')-Q(s,a)]$
-
+$$Q(s,a)\rightarrow (1-\alpha)Q(s,a) + \alpha[r+\gamma max_{a'} Q(s', a')]$$
+
+,where $\alpha$ is the learning rate, and $\gamma$ is the discount rate
 
 
