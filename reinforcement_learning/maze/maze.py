@@ -56,6 +56,7 @@ def update():
             if done:
                 break
     print("Game Over")
+    print(RL.q_table)
     env.destroy()
 
 

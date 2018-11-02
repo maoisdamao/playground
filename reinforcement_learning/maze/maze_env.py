@@ -118,7 +118,7 @@ class Maze(tk.Tk, object):
             done = True
             s_ = 'terminal'
         elif s_ in [self.canvas.coords(self.hell1), self.canvas.coords(self.hell2)]:
-            reward = -1
+            reward = -10
             done = True
             s_ = 'terminal'
         else:
@@ -128,7 +128,7 @@ class Maze(tk.Tk, object):
         return s_, reward, done
 
     def render(self):
-        time.sleep(0.1)
+        time.sleep(0.01)
         self.update()
 
 
